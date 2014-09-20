@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package Algorithm;
 
@@ -102,7 +98,8 @@ public class Method2 {
         		Row newRow = newSheet.createRow(newRowNum++);
         		Cell newCell =newRow.createCell(0);
         		String test = mapArray[i];
-                        keyword1.append(test+" ");
+        		 
+                keyword1.append(test+" ");
         		newCell.setCellValue(test);
         	}
         }
@@ -120,7 +117,14 @@ public class Method2 {
         }
     
         
-        return keyword1.toString().split(" ");
+       // return keyword1.toString().split(" ");
+        
+        String[] x = new String[0];
+        if(keyword1.length()>0)
+        	x =	keyword1.toString().split(" ");
+        
+        
+        return x;
     }
     
 }

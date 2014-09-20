@@ -7,13 +7,23 @@
 package MainComponent;
 
 import Algorithm.NetofSubjt;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -36,6 +46,7 @@ public class BuildRelationship extends javax.swing.JFrame {
     private NetofSubjt net = new NetofSubjt();
     public BuildRelationship(String[] keywordInput ,String[] keywordChoose , double [] point) {
        initComponents();
+       this.setVisible(true);
        pointNew = new Vector(10);
        this.point=point;
        list.add(jRadioButton1);
@@ -132,8 +143,6 @@ public class BuildRelationship extends javax.swing.JFrame {
         jRadioButton18 = new javax.swing.JRadioButton();
         jRadioButton19 = new javax.swing.JRadioButton();
         jRadioButton20 = new javax.swing.JRadioButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("其他关键词列表");
 
@@ -441,7 +450,8 @@ public class BuildRelationship extends javax.swing.JFrame {
                 else
                     chooseR[i] = chooseRight1[i-1];
             }
-           
+           //把chooser的第一个词追加到关键词词库中
+            importGuanjianci(chooseR[0]);
             net.inport(chooseR, pointArray);//将关联关键词加入文档中
         } catch (Exception ex) {
             Logger.getLogger(BuildRelationship.class.getName()).log(Level.SEVERE, null, ex);
@@ -450,7 +460,24 @@ public class BuildRelationship extends javax.swing.JFrame {
          this.setVisible(false);
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+ 
+    private void importGuanjianci(String keyword ) throws FileNotFoundException, IOException
+    {
+      
+        
+             FileInputStream fileIn = new FileInputStream("关键词词库.xlsx");            
+             XSSFWorkbook workbook = new XSSFWorkbook(fileIn);
+             XSSFSheet sheet1 = workbook.getSheetAt(0);
+             XSSFRow row1 = sheet1.getRow(0);
+             row1=sheet1.createRow((short)(sheet1.getLastRowNum()+1));
+	     row1.createCell(0).setCellValue(keyword);
+             FileOutputStream fileOut = new FileOutputStream("关键词词库.xlsx");
+             fileOut.flush();
+             workbook.write(fileOut);
+             fileIn.close();
+             fileOut.close();
+        
+    }
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
         

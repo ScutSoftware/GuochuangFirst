@@ -283,6 +283,7 @@ public class Method1 {
             System.out.print(out[i]);
         }
                 */
+        System.out.print("method1");
         return out;
 	}
             

@@ -28,6 +28,7 @@ public class Mega {
 	private ArrayList recordAssociateWord = new ArrayList<String>();//在其他主题词中匹配到的词汇
 	private ArrayList recordAssociatePoit = new ArrayList();//匹配到的词汇的分数
 	int recordAssociateNum = 0;//总共匹配到的个数
+	private String filePath;
 	
 	//对外接口，输出十个词
 	public String[] init(String[] s1,String[]s2) throws Exception{
@@ -45,10 +46,13 @@ public class Mega {
 			alocate();
 			sort();
 			if(findAssociate()){
+			
 				reSort();
 			}
+		//insert();
 			return x;
 		}else{
+			
 			x = null;
 			return x;
 		}
@@ -92,29 +96,38 @@ public class Mega {
 				if(!xLit.contains(s1[i1])){
 					xLit.add(s1[i1]);
 					poit[i] = index[0][i1];//将分数也记录下来
-					i1++;
+					//i1++;
 					i++;
 				}
+				i1++;
 				
 			}else{
 				if(!xLit.contains(s2[i2])){
 					xLit.add(s2[i2]);
 					poit[i] = index[1][i2];
-					i2++;
+					//i2++;
 					i++;
 				}
+				i2++;
 				}
-			}else if(i1>=s1.length&&!xLit.contains(s2[i2])){//s1已完
+			}else if(i1>=s1.length){//s1已完
+				if(!xLit.contains(s2[i2])){
 				xLit.add(s2[i2]);
 				poit[i] = index[1][i2];
-				i2++;
+				//i2++;
 				i++;
-			}else if(i2>=s2.length&&!xLit.contains(s1[i1])){//s2已完
+				}
+				i2++;
+			}else if(i2>=s2.length){//s2已完
+				if(!xLit.contains(s1[i1])){
 				xLit.add(s1[i1]);
 				poit[i] = index[0][i1];
-				i1++;
+				//i1++;
 				i++;
+				}
+				i1++;
 			}
+		
 		/*	if(index[0][i1]>index[1][i2]){
 				if(index[0][i1]>index[2][i3]){
 					System.out.print(s1[i1]+" ");
@@ -161,6 +174,7 @@ public class Mega {
 				
 				 if(xLit.contains(row.getCell(j).toString())){
 					 count++;
+					 //System.out.println(row.getCell(j).toString());
 				 }else
 					 break;//有一个单元格不匹配，直接退出，避免浪费计算资源
 				 
@@ -197,23 +211,28 @@ public class Mega {
 				if(!tmp.contains(recordAssociateWord.get(i1))){
 					tmp.add(recordAssociateWord.get(i1));
 					tmpPoint[i] = recordeAssociatePoitArray[i1];//将分数也记录下来
-					i1++;
+					//i1++;
 					i++;
 				}
+				i1++;
 				
 			}else{
 				if(!tmp.contains(xLit.get(i2))){
 					tmp.add(xLit.get(i2));
 					tmpPoint[i] = poit[i2];//将分数也记录下来
-					i2++;
+					//i2++;
 					i++;
 				}
+				i2++;
 				}
-			}else if(i1>=recordAssociateNum&&!!tmp.contains(xLit.get(i2))){//s1已完
+			}else if(i1>=recordAssociateNum){//s1已完
+				if(!tmp.contains(xLit.get(i2))){
 				tmp.add(xLit.get(i2));
 				tmpPoint[i] = poit[i2];//将分数也记录下来
-				i2++;
+				//i2++;
 				i++;
+				}
+				i2++;
 			}
 	
 		}//end for
@@ -224,4 +243,30 @@ public class Mega {
 	
 	}
 
+	//在源文件中插入十个主题词
+	private void insert() throws Exception{
+		  FileInputStream fs=new FileInputStream(filePath);
+			
+	      XSSFWorkbook wb=new XSSFWorkbook(fs);    
+	      XSSFSheet sheet=wb.getSheetAt(0);  //获取到工作表，因为一个excel可能有多个工作表  
+	      XSSFRow row=sheet.getRow(0);
+		  //System.out.println(sheet.getLastRowNum()+"  "+row.getLastCellNum());
+		  FileOutputStream out=new FileOutputStream(filePath);
+		for(int i = 0;i<x.length;i++){
+		  row=sheet.getRow(i);
+		  row.createCell(11).setCellValue(x[i]); //设置第一个（从0开始）单元格的数据  
+		  
+		  
+		}
+	      
+		  out.flush();  
+	      wb.write(out);    
+	      out.close(); 
+	      fs.close();
+	}
+	//设置源文件路径
+	public void set_path(String path){
+		this.filePath = path;
+	}
 }
+

@@ -27,7 +27,7 @@ public class SegmentationAndNounFilter {
     public String [] SegmentationNounFilter(String filepath,String filename)
     { try{
             
-            String mingciPath = filepath.replace(filename,"名词.xlsx");
+            String mingciPath = "名词.xlsx";
             ICTCLAS50 testICTCLAS50 = new ICTCLAS50();
             String argu = ".";
             if(testICTCLAS50.ICTCLAS_Init(argu.getBytes("GB2312")) == false){

@@ -32,40 +32,7 @@ public class SortALG {
         int placeMatch1 = 0 ;
 	boolean numMatch2=false;
         int placeMatch2 = 0 ;
-     //   boolean [] inputMatch = new boolean[inputKeyword.length]; 
-        /*
-         FileInputStream workFile = new FileInputStream(new File("关键词词库.xlsx"));
-         XSSFWorkbook srcWorkbook = new XSSFWorkbook(workFile);
-         XSSFSheet srcSheet = srcWorkbook.getSheetAt(0);
-         Iterator<Row> srcRowIterator = srcSheet.iterator();        
-        for(int i=0;i<inputKeyword.length;i++)
-        {
-            for(int j=0;j<method1.length;j++)
-            {
-                if(inputKeyword[i].equals(method1[j]))
-                    inputMatch[i]=true;
-            }
-        }
-        for(int i=0;i<inputKeyword.length;i++)
-        {
-            for(int j=0;j<method2.length;j++)
-            {
-                
-                if(inputKeyword[i].equals(method2[j]))
-                    inputMatch[i]=true;
-            }
-        }
 
-        for(int i=0;i<inputMatch.length;i++)
-        {
-            if(inputMatch[i]==false)
-            {
-                Row row=srcSheet.createRow(srcSheet.getLastRowNum()+1);
-                Cell cell =row.createCell(0);
-                cell.setCellValue(inputKeyword[i]);
-            }
-        }
-        */
         for(int i=0;i<keyword.length;i++)//匹配方法1
         {
             for(int j=0;j<method1.length;j++)
