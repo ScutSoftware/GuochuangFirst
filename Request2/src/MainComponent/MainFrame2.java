@@ -27,7 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
- * @author HuaLian Miss
+ * @author HuaLian Miss LULU
  */
 public class MainFrame2 extends javax.swing.JFrame {
 
@@ -40,6 +40,7 @@ public class MainFrame2 extends javax.swing.JFrame {
     private String[] str2Ary;    //"主题词优先级排序" 中的字符串数组
     private StringBuffer keywordChoose = new StringBuffer();
     private StringBuffer keywordInput = new StringBuffer();
+    private boolean [] step;//记录步骤
     
     public MainFrame2() {
         initComponents();
@@ -50,6 +51,12 @@ public class MainFrame2 extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         jTextArea1.setEditable(false);
         jTextField2.setText(null);
+        step = new boolean[4];
+        step[0]=true;
+        for(int i=0;i<step.length;i++)
+        {
+            step[i]=false;
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -93,7 +100,6 @@ public class MainFrame2 extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
 
@@ -103,6 +109,8 @@ public class MainFrame2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("关键词抽取");
+        setBounds(new java.awt.Rectangle(0, 0, 536, 700));
+        setResizable(false);
 
         jLabel1.setText("投诉文本记录");
 
@@ -128,6 +136,11 @@ public class MainFrame2 extends javax.swing.JFrame {
         });
 
         jButton4.setText("取消");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("主题词抽取结果");
 
@@ -137,70 +150,60 @@ public class MainFrame2 extends javax.swing.JFrame {
 
         jLabel3.setText("主题词更正与反馈");
 
-        jCheckBox1.setText("jCheckBox1");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setText("jCheckBox2");
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
             }
         });
 
-        jCheckBox3.setText("jCheckBox3");
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox3ActionPerformed(evt);
             }
         });
 
-        jCheckBox4.setText("jCheckBox4");
         jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox4ActionPerformed(evt);
             }
         });
 
-        jCheckBox5.setText("jCheckBox5");
         jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox5ActionPerformed(evt);
             }
         });
 
-        jCheckBox6.setText("jCheckBox6");
         jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox6ActionPerformed(evt);
             }
         });
 
-        jCheckBox7.setText("jCheckBox7");
         jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox7ActionPerformed(evt);
             }
         });
 
-        jCheckBox8.setText("jCheckBox8");
         jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox8ActionPerformed(evt);
             }
         });
 
-        jCheckBox9.setText("jCheckBox9");
         jCheckBox9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox9ActionPerformed(evt);
             }
         });
 
-        jCheckBox10.setText("jCheckBox10");
         jCheckBox10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox10ActionPerformed(evt);
@@ -219,6 +222,11 @@ public class MainFrame2 extends javax.swing.JFrame {
         });
 
         jButton7.setText("取消");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("确认");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +236,11 @@ public class MainFrame2 extends javax.swing.JFrame {
         });
 
         jButton9.setText("取消");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("主题词优先级排序");
 
@@ -239,6 +252,11 @@ public class MainFrame2 extends javax.swing.JFrame {
         });
 
         jButton11.setText("取消");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setText("主题词确认");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -246,9 +264,6 @@ public class MainFrame2 extends javax.swing.JFrame {
                 jButton12ActionPerformed(evt);
             }
         });
-
-        jButton13.setText("取消");
-        jButton13.setActionCommand("");
 
         jList1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -273,12 +288,6 @@ public class MainFrame2 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(213, 213, 213)
-                .addComponent(jButton12)
-                .addGap(18, 18, 18)
-                .addComponent(jButton13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -288,20 +297,31 @@ public class MainFrame2 extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jCheckBox6, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jCheckBox7, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                    .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jCheckBox8, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                    .addComponent(jCheckBox3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jCheckBox9, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                    .addComponent(jCheckBox4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton9)
-                                .addGap(12, 12, 12))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCheckBox10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton9)
+                                        .addGap(32, 32, 32))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -324,30 +344,24 @@ public class MainFrame2 extends javax.swing.JFrame {
                                         .addComponent(jButton2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCheckBox1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox5))
                                     .addComponent(jLabel5)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton11)
-                        .addGap(12, 12, 12))))
+                        .addGap(32, 32, 32))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(256, 256, 256)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,9 +427,7 @@ public class MainFrame2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton12)
-                    .addComponent(jButton13))
+                .addComponent(jButton12)
                 .addContainerGap())
         );
 
@@ -425,6 +437,7 @@ public class MainFrame2 extends javax.swing.JFrame {
     private String fileName;
     private String filePath;
     private String mingciPath;
+    
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -459,6 +472,8 @@ public class MainFrame2 extends javax.swing.JFrame {
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        if(step[1]==true)
+        {
         jCheckBox1.setText(keyword[0]);
         jCheckBox2.setText(keyword[1]);
         jCheckBox3.setText(keyword[2]);
@@ -469,13 +484,18 @@ public class MainFrame2 extends javax.swing.JFrame {
         jCheckBox8.setText(keyword[7]);
         jCheckBox9.setText(keyword[8]);
         jCheckBox10.setText(keyword[9]);
+        step[2]=true;
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"请在上一步中进行确定","提示",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
-    private boolean isSelct = false ;
+    private boolean judeg3 = false ; 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-       if(isSelct == false)
-       { 
-        isSelct = true ;
+       if(step[2])
+       {        
         if(jCheckBox1.isSelected())
             str1.append(jCheckBox1.getLabel()+" ");
         if(jCheckBox2.isSelected())
@@ -500,26 +520,22 @@ public class MainFrame2 extends javax.swing.JFrame {
         keywordInput.append(jTextField2.getText());
         str1.append(" "+jTextField2.getText());       
         str1Ary = str1.toString().split(" ");
-       jCheckBox1.setEnabled(false);
-       jCheckBox2.setEnabled(false);
-       jCheckBox3.setEnabled(false);
-       jCheckBox4.setEnabled(false);
-       jCheckBox5.setEnabled(false);
-       jCheckBox6.setEnabled(false);
-       jCheckBox7.setEnabled(false);
-       jCheckBox8.setEnabled(false);
-       jCheckBox9.setEnabled(false);
-       jCheckBox10.setEnabled(false);
-       addElement();
-        if(keywordInput.length()>1)
+       
+        if(keywordInput.length()>1&&keywordChoose.length()>1)
         {
             BuildRelationship relationship = new BuildRelationship(keywordInput.toString().split(" "),keywordChoose.toString().split(" "),point);
+            addElement();
         } 
         else
         {
-             JOptionPane.showMessageDialog(null,"请输入其他关键词","提示",JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null,"请选择和输入关键词","提示",JOptionPane.ERROR_MESSAGE);
        
         }
+        step[3]=true;
+        keywordChoose.setLength(0);
+        keywordInput.setLength(0);
+        str1.setLength(0);
+        
        }
       
         
@@ -604,6 +620,8 @@ public class MainFrame2 extends javax.swing.JFrame {
          * str2Ary[len-1]右端多出"]"
          * 故将通过getElement的方法将第一个值与最后一个值直接赋予str2Ary
          */
+        if(step[3]==true)
+        {
         String [] newKeyword = new String [str1Ary.length];
         for(int i=0;i<newKeyword.length;i++)
         {
@@ -616,11 +634,18 @@ public class MainFrame2 extends javax.swing.JFrame {
             Logger.getLogger(MainFrame2.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(null,"收集信息完成","提示",JOptionPane.ERROR_MESSAGE);
-        
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"请在上一步确认","提示",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
-
+    File fileOpen ;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        fileOpen = new File(filePath);
+        if(fileOpen.exists()==true)
+        {
         SegmentationAndNounFilter segmentationFilter = new SegmentationAndNounFilter();
         segmentationFilter.SegmentationNounFilter(filePath, fileName);
         Method1 method1 = new Method1();           
@@ -637,7 +662,7 @@ public class MainFrame2 extends javax.swing.JFrame {
         
         try {
             keyword = m.init(method1Tran, method2Tran);
-            importGuanjianci(keyword);
+            
         } catch (Exception ex) {
             Logger.getLogger(MainFrame2.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -650,6 +675,11 @@ public class MainFrame2 extends javax.swing.JFrame {
              showIn.append(keyword[i]+" ");
          }
          jTextArea1.setText(showIn.toString());
+         
+         step[1]=true;
+        }
+        else
+             JOptionPane.showMessageDialog(null,"请选择合适的文件","提示",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void importGuanjianci(String keyword [] ) throws FileNotFoundException, IOException
@@ -678,8 +708,119 @@ public class MainFrame2 extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        if(step[3])
+        {
+            try {
+                importGuanjianci(keyword);
+                JOptionPane.showMessageDialog(null,"关键词已写入导入文件","提示",JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           System.exit(0);
+           
+        }
+        else     
+             JOptionPane.showMessageDialog(null,"请确定所有步骤","提示",JOptionPane.ERROR_MESSAGE);
+        
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if(step[0]==false)
+        {
+            jTextField1.setText("");       
+            filePath=null;
+            fileName=null;
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"请从下一步进行取消","提示",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+       
+        if(step[1]==false)
+        {
+            JOptionPane.showMessageDialog(null,"请从上一步确定","提示",JOptionPane.ERROR_MESSAGE);
+        }
+        if(step[2]==true)
+        {
+            JOptionPane.showMessageDialog(null,"请从下一步取消","提示",JOptionPane.ERROR_MESSAGE);
+        }
+         if(step[1]==true&&step[2]==false)
+        {
+        
+        jTextArea1.setText("");
+        for(int i= 0;i<keyword.length;i++)
+        {
+            keyword[i]=null;
+        }
+        step[1]=false;
+        JOptionPane.showMessageDialog(null,"已返回上一步","提示",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+       
+        if(step[2]==false)
+        {
+             JOptionPane.showMessageDialog(null,"请从上一步确定","提示",JOptionPane.ERROR_MESSAGE);
+        }
+        if(step[3]==true)
+        {
+             JOptionPane.showMessageDialog(null,"请从下一步取消","提示",JOptionPane.ERROR_MESSAGE);
+        }
+         if(step[2]==true&&step[3]==false)
+        {
+             jTextField2.setText(null);
+             jCheckBox1.setText(null);
+             jCheckBox2.setText(null);
+             jCheckBox3.setText(null);
+             jCheckBox4.setText(null);
+             jCheckBox5.setText(null);
+             jCheckBox6.setText(null);
+             jCheckBox7.setText(null);
+             jCheckBox8.setText(null);
+             jCheckBox9.setText(null);
+             jCheckBox10.setText(null);
+             jCheckBox1.setSelected(false);
+             jCheckBox2.setSelected(false);
+             jCheckBox3.setSelected(false);
+             jCheckBox4.setSelected(false);
+             jCheckBox5.setSelected(false);
+             jCheckBox6.setSelected(false);
+             jCheckBox7.setSelected(false);
+             jCheckBox8.setSelected(false);
+             jCheckBox9.setSelected(false);
+             jCheckBox10.setSelected(false);
+             
+             JOptionPane.showMessageDialog(null,"已返回上一步","提示",JOptionPane.ERROR_MESSAGE);
+
+             step[2]=false;
+             
+             
+             
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        if(step[3]==true)
+        {
+             listModel.clear();
+             jList1.setModel(listModel);
+             JOptionPane.showMessageDialog(null,"已返回上一步","提示",JOptionPane.ERROR_MESSAGE);
+             step[3]=false;
+             
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"请从上一步确定","提示",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -687,7 +828,7 @@ public class MainFrame2 extends javax.swing.JFrame {
     
     public void addElement()
     {
-        
+        listModel.clear();
                 for(int i=0;i<str1Ary.length;i++)
                 {
                     listModel.addElement(str1Ary[i]);
@@ -736,7 +877,6 @@ public class MainFrame2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
